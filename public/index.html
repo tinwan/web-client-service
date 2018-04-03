@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="chatRoom" style="width:300px; border-radius: 5px;border: 1px solid rgb(43, 147, 230);">
-        <div >
+        <div id="history">
 
         </div>
         <div >
@@ -21,8 +21,14 @@
         $("commitInput").onclick = function () {
             var el = $("inputArea");
             var cont = el.value;
+            socket.emit('chat message', cont);
             el.value = "";
         }
+        socket.on('chat message', function(msg){
+            var el = document.createElement("div");
+            el.innerText = msg
+            $('history').appendChild(el);
+        });
     </script>
 </body>
 </html>
